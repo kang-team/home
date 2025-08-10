@@ -4,8 +4,8 @@ $(function () {
     // 윈도우 너비를 확인
     const windowWidth = window.innerWidth;
     
-    // 데스크톱 환경 (768px 초과)
-    if (windowWidth > 768) {
+    // 데스크톱 환경 (800px 초과)
+    if (windowWidth > 864) {
       // 데스크톱 메뉴 호버 이벤트 바인딩
       $("nav").off('mouseenter mouseleave'); // 기존 이벤트 제거
       $("nav").on('mouseenter', function () {

@@ -1176,35 +1176,13 @@ footer .foot-area02 .family select option {
   .brand .cons {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
-  }
-
-  /* Recipe 섹션 - 2열로 변경 */
-  .recipe .cons {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    max-width: 50rem;
     margin: 2rem auto 0;
   }
 
-  .recipe .r-rect:nth-child(3) {
-    grid-column: 1 / -1;
-    max-width: 25rem;
-    margin: 0 auto;
-  }
-
-  /* News 섹션 - 2열로 변경 */
-  .news .cons {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    max-width: 50rem;
-    margin: 2rem auto 0;
-  }
-
-  .news .cons a:nth-child(3) {
-    grid-column: 1 / -1;
-    max-width: 25rem;
-    margin: 0 auto;
-  }
+ .brand .brand-rect:last-child {
+  grid-column: 1 / -1;
+  margin: 0 auto;
+}
 
   /* About 섹션 - 세로 배치 */
   .about .con {
@@ -1239,6 +1217,40 @@ footer .foot-area02 .family select option {
     gap: 1.5rem;
     max-width: 50rem;
     margin: 2rem auto 0;
+  }
+
+
+ .esg .esg-rect:last-child {
+  grid-column: 1 / -1;
+  margin: 0 auto;
+}
+
+  /* Recipe 섹션 - 2열로 변경 */
+  .recipe .cons {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 50rem;
+    margin: 2rem auto 0;
+  }
+
+  .recipe .r-rect:nth-child(3) {
+    grid-column: 1 / -1;
+    max-width: 25rem;
+    margin: 0 auto;
+  }
+
+  /* News 섹션 - 2열로 변경 */
+  .news .cons {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 50rem;
+    margin: 2rem auto 0;
+  }
+
+  .news .cons a:nth-child(3) {
+    grid-column: 1 / -1;
+    max-width: 25rem;
+    margin: 0 auto;
   }
 
   /* Footer - 1열로 변경 */

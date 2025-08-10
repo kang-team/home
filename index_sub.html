@@ -287,7 +287,7 @@
         </div>
       </div>      
     </footer>
-    
+
     <button class="top-button hidden" id="topButton" aria-label="맨 위로 이동">
     <!-- CSS로 화살표를 만들기 때문에 내용 없음 -->
     </button>
@@ -355,34 +355,47 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ✨ 새로운 TOP 버튼 기능
+    // ✨ 새로운 TOP 버튼 기능 (모바일 최적화)
     const topButton = document.getElementById('topButton');
     let isScrolling = false;
+    let ticking = false;
 
-    // TOP 버튼 클릭 이벤트
+    // TOP 버튼 클릭 이벤트 (터치 최적화)
     if (topButton) {
-        topButton.addEventListener('click', function() {
+        // 터치와 클릭 모두 지원
+        const handleTopButtonClick = function(e) {
+            e.preventDefault();
+            
             // 부드러운 스크롤
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
             
+            // 터치 피드백
+            this.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+            
             // 클릭 시 펄스 효과 (선택사항)
             this.classList.add('pulse');
             setTimeout(() => {
                 this.classList.remove('pulse');
             }, 2000);
-        });
+        };
+        
+        topButton.addEventListener('click', handleTopButtonClick);
+        topButton.addEventListener('touchend', handleTopButtonClick);
     }
 
-    // 스크롤에 따른 TOP 버튼 표시/숨김
+    // 스크롤에 따른 TOP 버튼 표시/숨김 (성능 최적화)
     function toggleTopButton() {
-        if (!isScrolling) {
-            window.requestAnimationFrame(function() {
+        if (!ticking) {
+            requestAnimationFrame(function() {
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                 
-                if (scrollTop > 300) { // 300px 이상 스크롤 시 표시
+                if (scrollTop > 200) { // 모바일에서는 200px로 줄임
                     topButton.classList.remove('hidden');
                     topButton.classList.add('visible');
                 } else {
@@ -390,10 +403,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     topButton.classList.add('hidden');
                 }
                 
-                isScrolling = false;
+                ticking = false;
             });
+            ticking = true;
         }
-        isScrolling = true;
     }
 
     // 스크롤 이벤트 리스너
@@ -411,6 +424,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-
 </body>
 </html>

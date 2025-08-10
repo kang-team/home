@@ -1275,12 +1275,8 @@ footer .foot-area02 .family select option {
   }
 }
 
-/* 태블릿 (768px 이하) */
-@media (max-width: 48rem) {
-  .inner {
-    padding: 3rem 0;
-  }
-
+/* 태블릿 (864px 이하) */
+@media (max-width: 54rem) {
   /* 헤더 - 햄버거 메뉴 활성화 */
   header .gnb {
     display: none;
@@ -1290,6 +1286,13 @@ footer .foot-area02 .family select option {
 
   .hamburger {
     display: flex;
+  }
+}
+
+/* 태블릿 (768px 이하) */
+@media (max-width: 48rem) {
+  .inner {
+    padding: 3rem 0;
   }
 
   /* Recipe 섹션 - 1열로 변경 */

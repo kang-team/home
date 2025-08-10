@@ -1281,12 +1281,16 @@ footer .foot-area02 .family select option {
   header .gnb {
     display: none;
   }
-  .mbg {display: none; z-index: -100;}
 
+.mbg {
+    display: none; z-index: -1;
+  }
 
   .hamburger {
     display: flex;
+    z-index: 100;
   }
+
 }
 
 /* 태블릿 (768px 이하) */

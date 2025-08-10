@@ -576,6 +576,7 @@
 </button>
   </div> <!-- wrap -->
 
+
 <script>
 // 기존 햄버거 메뉴 스크립트에 TOP 버튼 기능 추가
 document.addEventListener('DOMContentLoaded', function() {
@@ -639,110 +640,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ✨ 새로운 TOP 버튼 기능 (모바일 최적화)
-    const topButton = document.getElementById('topButton');
-    let isScrolling = false;
-    let ticking = false;
 
-    // TOP 버튼 클릭 이벤트 (터치 최적화)
-    if (topButton) {
-        // 터치와 클릭 모두 지원
-        const handleTopButtonClick = function(e) {
-            e.preventDefault();
-            
-            // 부드러운 스크롤
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-            
-            // 터치 피드백
-            this.style.transform = 'scale(0.9)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 150);
-            
-            // 클릭 시 펄스 효과 (선택사항)
-            this.classList.add('pulse');
-            setTimeout(() => {
-                this.classList.remove('pulse');
-            }, 2000);
-        };
-        
-        topButton.addEventListener('click', handleTopButtonClick);
-        topButton.addEventListener('touchend', handleTopButtonClick);
-    }
-
-    // 🔶 통합 스크롤 이벤트 (TOP 버튼 + 노란 배경 퍼지기)
-    function handleScroll() {
-        if (!ticking) {
-            requestAnimationFrame(function() {
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                
-                // 1. TOP 버튼 표시/숨김
-                if (scrollTop > 200) {
-                    topButton.classList.remove('hidden');
-                    topButton.classList.add('visible');
-                } else {
-                    topButton.classList.remove('visible');
-                    topButton.classList.add('hidden');
-                }
-                
-                // 2. 노란 배경 퍼지기 효과
-                const brandElement = document.querySelector('.brand');
-                const bgConElement = document.querySelector('.bg_con');
-                
-                if (brandElement && bgConElement) {
-                    const offsetVal = 500;
-                    const brandOffset = brandElement.offsetTop - offsetVal;
-                    
-                    if (scrollTop >= brandOffset) {
-                        bgConElement.classList.add('on');
-                    }
-                    // 선택사항: 스크롤을 다시 올렸을 때 효과 제거
-                    // else {
-                    //     bgConElement.classList.remove('on');
-                    // }
-                }
-                
-                ticking = false;
-            });
-            ticking = true;
-        }
-    }
-
-    // 통합 스크롤 이벤트 리스너
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    // 초기 상태 설정
-    handleScroll();
-
-    // 리사이즈 이벤트 (기존 코드 유지)
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
-            hamburger.classList.remove('active');
-            mobileMenu.classList.remove('active');
-        }
-    });
-    
-    // 🔶 브랜드 섹션 호버 효과 (Vanilla JS로 변경)
-    const brandPics = document.querySelectorAll('.brand .pic');
-    brandPics.forEach(function(pic) {
-        pic.addEventListener('mouseenter', function() {
-            const txt2 = this.querySelector('.txt2');
-            if (txt2) {
-                txt2.style.display = 'block';
-                txt2.style.color = 'white';
-            }
-        });
-        
-        pic.addEventListener('mouseleave', function() {
-            const txt2 = this.querySelector('.txt2');
-            if (txt2) {
-                txt2.style.display = 'none';
-            }
-        });
-    });
 });
 </script>
 </body>

@@ -1,115 +1,139 @@
-
-  $(function () {
-
-
-      // 서브메뉴 호버 이벤트
-      $("nav").mouseenter(function () {
+$(function () {
+    // 서브메뉴 호버 이벤트
+    $("nav").mouseenter(function () {
         $(".submenu, .mbg").stop().slideDown(200);
-      });
-
-      $("nav").mouseleave(function () {
+    });
+    
+    $("nav").mouseleave(function () {
         $(".submenu, .mbg").stop().slideUp(200);
-      });
-
-      // AOS 초기화
-      AOS.init();
-
-
-
+    });
+    
+    // AOS 초기화
+    AOS.init();
+    
     // 🔶 브랜드 섹션 인터랙션
     $(".brand .pic").mouseenter(function () {
-      $(this).find(".txt2").css({
-        "display": "block",
-        "color": "white"
-      });
+        $(this).find(".txt2").css({
+            "display": "block",
+            "color": "white"
+        });
     });
-
+    
     $(".brand .pic").mouseleave(function () {
-      $(this).find(".txt2").css("display", "none");
+        $(this).find(".txt2").css("display", "none");
     });
-
-    // 🔶 노란 PNG 퍼지기 스크롤 이벤트
-    $(window).on('scroll', function () {
-      var $wt = $(window).scrollTop(); // 현재 스크롤 위치
-      var winW = window.innerWidth;   // 현재 윈도우 가로 폭
-
-      var offsetVal = 500;
-      var $pot = $('.brand').offset().top - offsetVal;
-
-      if ($wt >= $pot) {
-        $('.bg_con').addClass('on');
-      }
-    });
-
-
-
-
-    // ✨ 새로운 TOP 버튼 기능 (모바일 최적화)
-    const topButton = document.getElementById('topButton');
-    let isScrolling = false;
+    
+    // 🔶 노란 PNG 퍼지기 스크롤 이벤트 + TOP 버튼 통합
+    let brandAnimated = false;
     let ticking = false;
+    const topButton = document.getElementById('topButton');
+    
+    function handleScroll() {
+        if (ticking) return;
+        
+        ticking = true;
+        requestAnimationFrame(function() {
+            const scrollTop = $(window).scrollTop();
+            const winW = window.innerWidth;
+            const isMobile = winW <= 768;
+            
+            // 디버깅 로그
+            // console.log('스크롤:', scrollTop, '화면폭:', winW, '모바일:', isMobile);
+            
+            // 🔶 브랜드 애니메이션 처리
+            if (!brandAnimated) {
+                const offsetVal = isMobile ? 300 : 500;
+                const brandElement = $('.brand');
+                
+                if (brandElement.length > 0) {
+                    const triggerPoint = brandElement.offset().top - offsetVal;
+                    
+                    if (scrollTop >= triggerPoint) {
+                        $('.bg_con').addClass('on');
+                        brandAnimated = true;
+                        console.log('브랜드 애니메이션 시작!');
+                    }
+                }
+            }
+            
+            // 🔶 TOP 버튼 표시/숨김 처리 (강화된 로직)
+            if (topButton) {
+                const threshold = isMobile ? 100 : 200;
+                
+                // 현재 상태 확인
+                const isCurrentlyVisible = topButton.classList.contains('visible');
+                const shouldBeVisible = scrollTop > threshold;
+                
+                // console.log('TOP 버튼 - 스크롤:', scrollTop, '임계값:', threshold, '표시되어야함:', shouldBeVisible, '현재표시:', isCurrentlyVisible);
+                
+                if (shouldBeVisible && !isCurrentlyVisible) {
+                    topButton.classList.remove('hidden');
+                    topButton.classList.add('visible');
+                    console.log('TOP 버튼 표시됨');
+                } else if (!shouldBeVisible && isCurrentlyVisible) {
+                    topButton.classList.remove('visible');
+                    topButton.classList.add('hidden');
+                    console.log('TOP 버튼 숨김');
+                }
+            } else {
+                console.warn('TOP 버튼을 찾을 수 없음');
+            }
+            
+            ticking = false;
+        });
+    }
+    
+    // 스크롤 이벤트 등록 (통합)
+    $(window).on('scroll', handleScroll);
+    
+    // 초기 TOP 버튼 상태 설정
+    handleScroll();
+});
 
-    // TOP 버튼 클릭 이벤트 (터치 최적화)
+// ✨ TOP 버튼 클릭 이벤트
+$(document).ready(function() {
+    const topButton = document.getElementById('topButton');
+    
     if (topButton) {
-        // 터치와 클릭 모두 지원
-        const handleTopButtonClick = function(e) {
+        function handleTopButtonClick(e) {
             e.preventDefault();
             
             // 부드러운 스크롤
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            $('html, body').animate({
+                scrollTop: 0
+            }, 500);
             
             // 터치 피드백
-            this.style.transform = 'scale(0.9)';
+            $(topButton).css('transform', 'translateY(0) scale(0.9)');
             setTimeout(() => {
-                this.style.transform = '';
+                $(topButton).css('transform', '');
             }, 150);
             
-            // 클릭 시 펄스 효과 (선택사항)
-            this.classList.add('pulse');
-            setTimeout(() => {
-                this.classList.remove('pulse');
-            }, 2000);
-        };
+            console.log('TOP 버튼 클릭됨');
+        }
         
         topButton.addEventListener('click', handleTopButtonClick);
         topButton.addEventListener('touchend', handleTopButtonClick);
+        
+        // TOP 버튼 상태 확인 (디버깅)
+        console.log('TOP 버튼 요소:', topButton);
+        console.log('초기 클래스:', topButton.className);
+    } else {
+        console.error('TOP 버튼을 찾을 수 없습니다!');
     }
+});
 
-    // 스크롤에 따른 TOP 버튼 표시/숨김 (성능 최적화)
-    function toggleTopButton() {
-        if (!ticking) {
-            requestAnimationFrame(function() {
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                
-                if (scrollTop > 200) { // 모바일에서는 200px로 줄임
-                    topButton.classList.remove('hidden');
-                    topButton.classList.add('visible');
-                } else {
-                    topButton.classList.remove('visible');
-                    topButton.classList.add('hidden');
-                }
-                
-                ticking = false;
-            });
-            ticking = true;
-        }
-    }
-
-    // 스크롤 이벤트 리스너
-    window.addEventListener('scroll', toggleTopButton, { passive: true });
+// 리사이즈 이벤트 (TOP 버튼 재확인 포함)
+$(window).on('resize', function() {
+    // 리사이즈 시 TOP 버튼 상태 재확인
+    setTimeout(function() {
+        handleScroll();
+    }, 100);
     
-    // 초기 상태 설정
-    toggleTopButton();
-
-    // 리사이즈 이벤트 (기존 코드 유지)
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
+    if (window.innerWidth > 768) {
+        if (typeof hamburger !== 'undefined' && typeof mobileMenu !== 'undefined') {
             hamburger.classList.remove('active');
             mobileMenu.classList.remove('active');
         }
-    });
-    
-  });
+    }
+});

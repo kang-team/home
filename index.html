@@ -571,98 +571,131 @@
         </div>
       </div>      
     </footer>
-    <a href="#top"><img class="top" src="img/main/button/top.png" alt="gotoTop"></a>
+    <button class="top-button hidden" id="topButton" aria-label="맨 위로 이동">
+  <!-- CSS로 화살표를 만들기 때문에 내용 없음 -->
+</button>
   </div> <!-- wrap -->
 
 
+<script>
+// 기존 햄버거 메뉴 스크립트에 TOP 버튼 기능 추가
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.querySelector('.hamburger');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileMainMenus = document.querySelectorAll('.mobile-main-menu');
+    
+    // 햄버거 메뉴 기능 (기존 코드 유지)
+    hamburger.addEventListener('click', function() {
+        this.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+    });
 
-
-    <script>
-    // 햄버거 메뉴 토글 기능
-    document.addEventListener('DOMContentLoaded', function() {
-        const hamburger = document.querySelector('.hamburger');
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const mobileMainMenus = document.querySelectorAll('.mobile-main-menu');
-
-        // 햄버거 메뉴 클릭 이벤트
-        hamburger.addEventListener('click', function() {
-            this.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-        });
-
-        // 모바일 메인 메뉴 클릭 시 서브메뉴 토글
-        mobileMainMenus.forEach(function(menu) {
-            menu.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const parentLi = this.parentElement;
-                const submenu = parentLi.querySelector('.mobile-submenu');
-                
-                // 다른 열린 메뉴들 닫기
-                mobileMainMenus.forEach(function(otherMenu) {
-                    if (otherMenu !== menu) {
-                        const otherParentLi = otherMenu.parentElement;
-                        const otherSubmenu = otherParentLi.querySelector('.mobile-submenu');
-                        otherParentLi.classList.remove('active');
-                        if (otherSubmenu) {
-                            otherSubmenu.classList.remove('active');
-                        }
+    mobileMainMenus.forEach(function(menu) {
+        menu.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const parentLi = this.parentElement;
+            const submenu = parentLi.querySelector('.mobile-submenu');
+            
+            mobileMainMenus.forEach(function(otherMenu) {
+                if (otherMenu !== menu) {
+                    const otherParentLi = otherMenu.parentElement;
+                    const otherSubmenu = otherParentLi.querySelector('.mobile-submenu');
+                    otherParentLi.classList.remove('active');
+                    if (otherSubmenu) {
+                        otherSubmenu.classList.remove('active');
                     }
-                });
-                
-                // 현재 메뉴 토글
-                parentLi.classList.toggle('active');
-                if (submenu) {
-                    submenu.classList.toggle('active');
                 }
             });
-        });
-
-        // 데스크톱 메뉴 호버 이벤트
-        const nav = document.querySelector('nav');
-        const submenus = document.querySelectorAll('.submenu');
-        const mbg = document.querySelector('.mbg');
-
-        if (nav && window.innerWidth > 768) {
-            nav.addEventListener('mouseenter', function() {
-                submenus.forEach(submenu => {
-                    submenu.style.display = 'block';
-                });
-                if (mbg) {
-                    mbg.style.display = 'block';
-                }
-            });
-
-            nav.addEventListener('mouseleave', function() {
-                submenus.forEach(submenu => {
-                    submenu.style.display = 'none';
-                });
-                if (mbg) {
-                    mbg.style.display = 'none';
-                }
-            });
-        }
-
-        // TOP 버튼 클릭 이벤트
-        const topButton = document.querySelector('[style*="position: fixed"]');
-        if (topButton) {
-            topButton.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        }
-
-        // 윈도우 리사이즈 시 모바일 메뉴 닫기
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                hamburger.classList.remove('active');
-                mobileMenu.classList.remove('active');
+            
+            parentLi.classList.toggle('active');
+            if (submenu) {
+                submenu.classList.toggle('active');
             }
         });
     });
-    </script>
+
+    // 데스크톱 메뉴 호버 (기존 코드 유지)
+    const nav = document.querySelector('nav');
+    const submenus = document.querySelectorAll('.submenu');
+    const mbg = document.querySelector('.mbg');
+
+    if (nav && window.innerWidth > 768) {
+        nav.addEventListener('mouseenter', function() {
+            submenus.forEach(submenu => {
+                submenu.style.display = 'block';
+            });
+            if (mbg) {
+                mbg.style.display = 'block';
+            }
+        });
+
+        nav.addEventListener('mouseleave', function() {
+            submenus.forEach(submenu => {
+                submenu.style.display = 'none';
+            });
+            if (mbg) {
+                mbg.style.display = 'none';
+            }
+        });
+    }
+
+    // ✨ 새로운 TOP 버튼 기능
+    const topButton = document.getElementById('topButton');
+    let isScrolling = false;
+
+    // TOP 버튼 클릭 이벤트
+    if (topButton) {
+        topButton.addEventListener('click', function() {
+            // 부드러운 스크롤
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
+            // 클릭 시 펄스 효과 (선택사항)
+            this.classList.add('pulse');
+            setTimeout(() => {
+                this.classList.remove('pulse');
+            }, 2000);
+        });
+    }
+
+    // 스크롤에 따른 TOP 버튼 표시/숨김
+    function toggleTopButton() {
+        if (!isScrolling) {
+            window.requestAnimationFrame(function() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > 300) { // 300px 이상 스크롤 시 표시
+                    topButton.classList.remove('hidden');
+                    topButton.classList.add('visible');
+                } else {
+                    topButton.classList.remove('visible');
+                    topButton.classList.add('hidden');
+                }
+                
+                isScrolling = false;
+            });
+        }
+        isScrolling = true;
+    }
+
+    // 스크롤 이벤트 리스너
+    window.addEventListener('scroll', toggleTopButton, { passive: true });
+    
+    // 초기 상태 설정
+    toggleTopButton();
+
+    // 리사이즈 이벤트 (기존 코드 유지)
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        }
+    });
+});
+</script>
 
 </body>
 

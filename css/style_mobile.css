@@ -197,10 +197,6 @@ header .submenu li a:hover {
   background: #fff;
   z-index: 1;
   display: none;
-  /* 대신 opacity/visibility로 부드러운 전환 구현 */
-  /* opacity: 0;
-  visibility: hidden; 
-  transition: opacity 0.3s ease, visibility 0.3s ease; */
 }
 
 
@@ -220,6 +216,11 @@ header .submenu li a:hover {
   /* 20px -> rem */
   justify-content: space-between;
 
+
+  pointer-events: auto; /* none이면 클릭 안됨 */
+  z-index: 10000; /* 다른 요소에 가려지지 않도록 */
+  position: relative; /* 또는 absolute/fixed */
+  cursor: pointer;
   /* border: 2px solid blue !important; */
   /* 햄버거 영역 확인 */
 }
@@ -253,7 +254,7 @@ header .submenu li a:hover {
   height: calc(100vh - 6.25rem);
   background: white;
   transition: left 0.3s ease;
-  z-index: 999;
+  z-index: 9999;
   padding: 2rem;
   overflow-y: auto;
 }
@@ -280,6 +281,8 @@ header .submenu li a:hover {
   border-bottom: 1px solid #eee;
   cursor: pointer;
   position: relative;
+  
+
 }
 
 .mobile-menu>ul>li>a:hover {
@@ -1283,7 +1286,7 @@ footer .foot-area02 .family select option {
   }
 
 .mbg {
-    display: none; z-index: -1;
+    display: none !important; z-index: -1;
   }
 
   .hamburger {

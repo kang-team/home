@@ -752,6 +752,10 @@ footer .foot-area02 .family select option {
 
 /* 모바일 (480px 이하) */
 @media (max-width: 30rem) {
+    header h1 {
+    width: 8rem;
+    height: 4rem;
+  }
   .gnbWrap {
     height: 4rem;
   }

@@ -1181,7 +1181,99 @@ footer .foot-area02 .family select option {
   color: white;
 }
 
+/* ==============================================
+    예쁜 TOP 버튼 디자인
+============================================== */
 
+.top-button {
+  position: fixed;
+  right: 1.5rem;              /* 24px */
+  bottom: 1.5rem;             /* 24px */
+  width: 3.5rem;              /* 56px */
+  height: 3.5rem;             /* 56px */
+  background: linear-gradient(135deg, #ff6400, #ff8533);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 9998;
+  
+  /* 그림자와 애니메이션 */
+  box-shadow: 
+    0 4px 15px rgba(255, 100, 0, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* 텍스트나 아이콘을 위한 설정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.25rem;         /* 20px */
+  font-weight: 600;
+  text-decoration: none;
+  
+  /* 터치 최적화 */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* 화살표 아이콘 (CSS로 제작) */
+.top-button::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 0.5rem solid transparent;
+  border-right: 0.5rem solid transparent;
+  border-bottom: 0.75rem solid white;
+  margin-bottom: 0.125rem;    /* 약간의 시각적 조정 */
+}
+
+/* 호버 효과 */
+.top-button:hover {
+  background: linear-gradient(135deg, #e55a00, #ff6400);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 
+    0 8px 25px rgba(255, 100, 0, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 클릭 효과 */
+.top-button:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 
+    0 2px 10px rgba(255, 100, 0, 0.4),
+    0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 스크롤에 따른 나타나기/사라지기 애니메이션 */
+.top-button.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.8);
+}
+
+.top-button.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* 펄스 애니메이션 (선택사항) */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 100, 0, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 100, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 100, 0, 0);
+  }
+}
+
+.top-button.pulse {
+  animation: pulse 2s infinite;
+}
 /* ==============================================
    반응형 미디어 쿼리 (통합 버전)
 ============================================== */

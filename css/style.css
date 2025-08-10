@@ -515,6 +515,25 @@ header .submenu li a:hover {
 }
 
 
+/* 동그라미 배경 효과 */
+.brand .bg_con {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  background: url(../img/main/bg/prd_bg.png) no-repeat center/cover;
+  border-radius: 50%;
+  /* z-index: 0; */
+  transform: translate(-50%, -50%);
+  transition: all 2.5s ease-in-out;
+}
+
+.brand .bg_con.on {
+  width: 500%;
+  height: 500%;
+  
+}
 /* ==============================================
            About 섹션 - 반응형 적용
         ============================================== */
@@ -1638,7 +1657,7 @@ footer .foot-area02 .family select option {
     height: 3rem;             /* 48px */
     font-size: 1rem;          /* 16px */
   }
-    .top-button::before {
+  .top-button::before {
     border-left: 0.4375rem solid transparent;
     border-right: 0.4375rem solid transparent;
     border-bottom: 0.625rem solid white;

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- 스타일시트 -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style_mobile.css">
   <link rel="stylesheet" href="css/style_detail.css">
   <script src="js/jquery-3.7.1.js"></script>
-  <script src="js/script.js"></script>
+  <script src="js/script_mobile.js"></script>
   <title>삼양식품Detail</title>
 </head>
 
@@ -20,7 +20,6 @@
   <div class="wrap">
     <div class="gnbWrap">
       <div class="inner">
-        <!-- <header id="header"></header> -->
          <header>
           <h1>
             <img src="img/main/0logo/logo_black.png" alt="삼양로고상단">
@@ -80,18 +79,74 @@
                   <li><a href="#">사업제안</a></li>
                   <li><a href="#">FAQ</a></li>
                 </ul>
-              </li>
+              </li>            
             </ul>
-          </nav>
-    
+                <!-- 햄버거 메뉴 -->
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+          </nav>          
        </header>
-      </div>      
+      </div>
     </div>
+
+        <!-- 모바일 메뉴 -->
+        <div class="mobile-menu">
+            <ul>
+                <li>
+                    <a href="#" class="mobile-main-menu">브랜드</a>
+                    <ul class="mobile-submenu">
+                        <li><a href="#">라면</a></li>
+                        <li><a href="#">과자</a></li>
+                        <li><a href="#">소스</a></li>
+                        <li><a href="#">냉동식품</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="mobile-main-menu">제품소개</a>
+                    <ul class="mobile-submenu">
+                        <li><a href="#">신제품</a></li>
+                        <li><a href="#">인기제품</a></li>
+                        <li><a href="#">전체제품</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="mobile-main-menu">회사소개</a>
+                    <ul class="mobile-submenu">
+                        <li><a href="#">회사개요</a></li>
+                        <li><a href="#">경영진</a></li>
+                        <li><a href="#">연혁</a></li>
+                        <li><a href="#">사업분야</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="mobile-main-menu">ESG</a>
+                    <ul class="mobile-submenu">
+                        <li><a href="#">환경경영</a></li>
+                        <li><a href="#">사회공헌</a></li>
+                        <li><a href="#">지배구조</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="mobile-main-menu">고객센터</a>
+                    <ul class="mobile-submenu">
+                        <li><a href="#">공지사항</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">문의하기</a></li>
+                        <li><a href="#">제품문의</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    
     <div class="mbg"></div>
 
-    <img src="img/detail/banner/detail_banner.png" alt="">
+    <img src="img/detail/banner/detail_banner.png" alt="" class="banner">
     <a href="#top"><img class="top" src="img/detail/button/top.png" alt="gotoTop"></a>
     <div class="inner">
+      <div class="map">
         <img src="img/detail/map/imgMap.png" usemap="#image-map">
         <map name="image-map">
             <area target="" alt="" title="" href="#" coords="367,416,265" shape="circle">
@@ -100,12 +155,54 @@
             <area target="" alt="" title="" href="#" coords="1074,2205,265" shape="circle">
             <area target="" alt="" title="" href="#" coords="781,2923,266" shape="circle">
         </map>   
+      </div>
+
+      <div class="about-brand">
+        <div class="con con1" data-aos="fade-up">
+          <div class="circle circle1"><div class="txt">#맵탱<br>매콤한 매력</div></div>
+          <div class="con-txt">
+            <span>#맵탱</span><br>
+          </div>
+          
+        </div>
+
+        <div class="con con2">
+          <div class="circle circle2" data-aos="fade-up"> <div class="txt">#불닭<br>극강의 매운맛</div></div>
+          <div class="con-txt" data-aos="fade-up">
+            <span>#불닭</span><br>
+          </div>
+        </div>
+
+        <div class="con con3" data-aos="fade-up">
+          <div class="circle circle3"><div class="txt">#삼양라면<br>클래식 라면</div></div>
+          <div class="con-txt">
+            <span>#삼양라면</span><br>
+          </div>
+        </div>
+
+        <div class="con con4">
+          <div class="circle circle4" data-aos="fade-up"> <div class="txt">#짜파구리<br>진짜 맛있어</div></div>
+          <div class="con-txt" data-aos="fade-up">
+            <span>#짜짜로니</span><br>
+          </div>
+        </div>
+
+        <div class="con con5" data-aos="fade-up">
+          <div class="circle circle5"><div class="txt">#탱글<br>새로운 식감</div></div>
+          <div class="con-txt">
+            <span>#탱글</span><br>
+          </div>
+        </div>
+
+        <div class="button" data-aos="fade-up"></div>
+
+      </div>
 
         <div class="btns">
             <ul>
-                <li><a href="#"> <img src="img/detail/button/gotoSnack.png" alt="스낵페이지"></a></li>
-                <li><a href="#"> <img src="img/detail/button/gotoSauce.png" alt="소스페이지"></a></li>
-                <li><a href="#"> <img src="img/detail/button/catalog.png" alt="카탈로그"></a></li>
+                <li><a href="#"> <img src="img/detail/button/gotoSnack.png" alt="스낵페이지" class="btnSnack"></a></li>
+                <li><a href="#"> <img src="img/detail/button/gotoSauce.png" alt="소스페이지" class="btnSauce"></a></li>
+                <li><a href="#"> <img src="img/detail/button/catalog.png" alt="카탈로그"  class="btnCatalog"></a></li>
             </ul>
         </div>
 
@@ -182,7 +279,7 @@
             </div>
           </div>
         </div>
-      </div>
-    </footer>    
+      </div>      
+    </footer>
 </body>
 </html>

@@ -1498,6 +1498,14 @@ footer .foot-area02 .family select option {
   .brand-slider .sns-image {
     height: 8rem;
   }
+
+  .top-button {
+    right: 1.25rem;
+    bottom: 1.25rem;
+    width: 3.25rem;           /* 52px */
+    height: 3.25rem;          /* 52px */
+    font-size: 1.125rem;      /* 18px */
+  }  
 }
 
 
@@ -1621,6 +1629,19 @@ footer .foot-area02 .family select option {
 
   footer .inner {
     padding: 0 1rem;
+  }
+
+  .top-button {
+    right: 1rem;
+    bottom: 1rem;
+    width: 3rem;              /* 48px */
+    height: 3rem;             /* 48px */
+    font-size: 1rem;          /* 16px */
+  }
+    .top-button::before {
+    border-left: 0.4375rem solid transparent;
+    border-right: 0.4375rem solid transparent;
+    border-bottom: 0.625rem solid white;
   }
 }
 

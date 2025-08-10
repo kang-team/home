@@ -1214,7 +1214,7 @@ footer .foot-area02 .family select option {
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 9998;
+  z-index: 10000;
   
   /* 그림자와 애니메이션 */
   box-shadow: 
@@ -1525,6 +1525,24 @@ footer .foot-area02 .family select option {
     height: 3.25rem;          /* 52px */
     font-size: 1.125rem;      /* 18px */
   }  
+}
+#topButton {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 9999 !important;
+  background-color: #333 !important;
+  color: white !important;
+  border-radius: 50% !important;
+  width: 48px !important;
+  height: 48px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+
+  /* 🔥 추가해야 할 부분 */
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 

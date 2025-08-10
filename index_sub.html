@@ -6,13 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- 스타일시트 -->
-  <link rel="stylesheet" href="css/style_mobile.css">
+  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/style_detail.css">
 
   <!-- 자바스크립트  -->
   <script src="js/jquery-3.7.1.js"></script>
   <script src="js/aos/aos.js"></script>
-  <script src="js/script_mobile.js"></script>
+  <script src="js/script.js"></script>
   <title>삼양식품Detail</title>
 </head>
 
@@ -284,5 +284,92 @@
         </div>
       </div>      
     </footer>
+
+    <script>
+    // 햄버거 메뉴 토글 기능
+    document.addEventListener('DOMContentLoaded', function() {
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileMainMenus = document.querySelectorAll('.mobile-main-menu');
+
+        // 햄버거 메뉴 클릭 이벤트
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // 모바일 메인 메뉴 클릭 시 서브메뉴 토글
+        mobileMainMenus.forEach(function(menu) {
+            menu.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const parentLi = this.parentElement;
+                const submenu = parentLi.querySelector('.mobile-submenu');
+                
+                // 다른 열린 메뉴들 닫기
+                mobileMainMenus.forEach(function(otherMenu) {
+                    if (otherMenu !== menu) {
+                        const otherParentLi = otherMenu.parentElement;
+                        const otherSubmenu = otherParentLi.querySelector('.mobile-submenu');
+                        otherParentLi.classList.remove('active');
+                        if (otherSubmenu) {
+                            otherSubmenu.classList.remove('active');
+                        }
+                    }
+                });
+                
+                // 현재 메뉴 토글
+                parentLi.classList.toggle('active');
+                if (submenu) {
+                    submenu.classList.toggle('active');
+                }
+            });
+        });
+
+        // 데스크톱 메뉴 호버 이벤트
+        const nav = document.querySelector('nav');
+        const submenus = document.querySelectorAll('.submenu');
+        const mbg = document.querySelector('.mbg');
+
+        if (nav && window.innerWidth > 768) {
+            nav.addEventListener('mouseenter', function() {
+                submenus.forEach(submenu => {
+                    submenu.style.display = 'block';
+                });
+                if (mbg) {
+                    mbg.style.display = 'block';
+                }
+            });
+
+            nav.addEventListener('mouseleave', function() {
+                submenus.forEach(submenu => {
+                    submenu.style.display = 'none';
+                });
+                if (mbg) {
+                    mbg.style.display = 'none';
+                }
+            });
+        }
+
+        // TOP 버튼 클릭 이벤트
+        const topButton = document.querySelector('[style*="position: fixed"]');
+        if (topButton) {
+            topButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // 윈도우 리사이즈 시 모바일 메뉴 닫기
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+    });
+    </script>    
 </body>
 </html>
